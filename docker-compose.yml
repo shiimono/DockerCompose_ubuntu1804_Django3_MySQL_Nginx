@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+    nginx: 
+        image: nginx:1.17
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./nginx/conf:/etc/nginx/conf.d
+            - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+            - ./static:/static
+        depends_on:
+            - python
+    
+    db:
+        build: ./mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            TZ: "Asia/Tokyo"
+        volumes:
+            - django.db.volume:/var/lib/mysql
+            - ./mysql/init.d:/docker-entrypoint-initdb.d
+    
+    python:
+        build: ./python
+        command: uwsgi --socket :8001 --module mysite.wsgi --logto /tmp/uwsgi.log
+        volumes:
+            - ./src:/code
+            - ./static:/static
+        expose:
+            - "8001"
+        depends_on:
+            - db
+
+volumes:
+    django.db.volume:
+        name: django.db.volume
