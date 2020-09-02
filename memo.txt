@@ -55,8 +55,9 @@ vscodeでRemote-containerを開いてから　django-admin startproject mysite�
         # Static files (CSS, JavaScript, Images)
         STATIC_URL = '/static/'
         STATIC_ROOT = '/static/'　# ←追加します
-・プロジェクト内のsettings.pyを編集2(ローカルPCのIPアドレス(下記の192.168.64.8は自分の値に設定する)を設定して管理者はトップページも見れるようにする)
+・プロジェクト内のsettings.pyを編集(ローカルPCのIPアドレス(下記の192.168.64.8は自分の環境の値に設定する)を設定して管理者がサイトを見れるようにする)
         ALLOWED_HOSTS = ["localhost","192.168.64.8",]
+        ※とりあえず何も入れなくてもOK！73行目の手順でALLOWED_HOSTSに入れるべき値がわかるのでそこで入れればいい。
 ・Djangoのデータベース構築と管理者ユーザー作成(プロジェクトフォルダ内のmanage.pyがある階層に移動する)
         # DBマイグレーション
         python3 manage.py migrate
@@ -74,7 +75,7 @@ vscodeでRemote-containerを開いてから　django-admin startproject mysite�
 　　・もしリビルドが上手くいかない場合はdocker desktopからimagesとcontainersを全部消去し、VSCodeで開いている.devcontainerを削除した後にVSCodeでRemote Containerで再度コンテナをビルドする
 ・runserverで建てたサーバーにアクセスして、Djangoのロケットのページが見えたら開発環境作成終了！
 　・サーバーのアドレスの後に /admin をつけると管理画面にアクセスできるので先ほど設定した管理者ユーザー（name=root,pass=root）でログインできる
-　　（name=root,pass=rootでログインするとchrome上で警告が出る。これは過去にroot,rootの組み合わせから情報が漏洩したことがあるという警告。）
+　　（name=root,pass=rootでログインするとchrome上で警告が出る。これは過去にroot,rootの組み合わせから情報が漏洩したことがあるという警告。実際にサービスを開発する時はrootは使わない。）
 
 
 注意
