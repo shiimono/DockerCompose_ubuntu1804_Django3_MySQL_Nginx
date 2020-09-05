@@ -9,6 +9,9 @@ services:
             - ./nginx/conf:/etc/nginx/conf.d
             - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
             - ./static:/static
+        networks:
+            app_net:
+                ipv4_address: 172.20.0.4
         depends_on:
             - python
     
@@ -16,7 +19,11 @@ services:
         build: ./mysql
         ports:
             - "3306:3306"
+        networks:
+            app_net:
+                ipv4_address: 172.20.0.3
         environment:
+            MYSQL_ROOT_USER: root
             MYSQL_ROOT_PASSWORD: root
             TZ: "Asia/Tokyo"
         volumes:
@@ -29,10 +36,26 @@ services:
         volumes:
             - ./src:/code
             - ./static:/static
+        networks:
+            app_net:
+                ipv4_address: 172.20.0.2
         expose:
             - "8001"
         depends_on:
             - db
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+
+volumes:
+    django.db.volume:
+        name: django.db.volume
+
 
 volumes:
     django.db.volume:
