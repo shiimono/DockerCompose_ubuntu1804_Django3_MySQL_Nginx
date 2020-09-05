@@ -50,12 +50,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.20.0.0/24
-
-volumes:
-    django.db.volume:
-        name: django.db.volume
-
+        - subnet: 172.20.0.0/24 # compose file version3以降、gatewayの項目は指定できないのでsubnetだけで良い
 
 volumes:
     django.db.volume:
