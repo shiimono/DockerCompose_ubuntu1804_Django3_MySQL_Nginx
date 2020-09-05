@@ -64,7 +64,7 @@ vscodeでRemote-containerを開いてから　django-admin startproject mysite�
         # 管理者の設定(nameはroot、EmailはブランクのままEnter、passはrootに設定（仮）)
         python3 manage.py createsuperuser
 ・静的ファイルをコピー
-        cssやjavascriptなどの静的ファイルがあればリモートコンテナを出た後でstaticディレクトリにコピー
+        cssやjavascriptなどの静的ファイルがあればstaticディレクトリにコピー
 ・VSCodeの左下の緑のボタンから Remote-ContainerのRebuildを実行しコンテナに設定を反映させる
 ・再度VSCodeのremote-containerでリモート開発環境に入る
 （・Docker DesktopでdjangoコンテナがRUNNINGになり、内部でdjango_db_1,django_nginx_1,django_python_1がRUNNINGになっていればOK）
